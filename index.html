@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="module">
+      const url = "https://jsonplaceholder.typicode.com/users";
+
+      const body = document.querySelector("body");
+      console.log(body);
+      const getData2 = async (url) => {
+        const res = await fetch(url);
+        const json = await res.json();
+        return json;
+      };
+
+      try {
+        const data = await getData2(url);
+        console.log(data);
+        data.forEach((element) => {
+          const users = `(
+            <div class="users">
+              <h3>Пользователь ${element.id}</h3>
+              <p class="name">Имя: ${element.name}</p>
+              <p class="username">Ник: ${element.username}</p>
+              <p class="email">Email: ${element.email}</p>
+            </div>
+            `;
+
+          body.insertAdjacentHTML("beforeend", users);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    </script>
+  </body>
+</html>
